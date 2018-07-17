@@ -56,7 +56,7 @@ public class Main {
         System.out.println(myBasket);
         sellItem(myBasket,"car",1);
 
-        // check to see what happens when we dont have an item to sell
+        // check to see what happens when we don't have an item to sell
         sellItem(myBasket,"spanner",15);
 
         sellItem(myBasket,"juice", 4);
@@ -84,7 +84,7 @@ public class Main {
         // retrieve the item from stock list
         StockItem stockItem = stockList.get(item);
         if(stockItem == null){
-            System.out.println("We dont sell " + item);
+            System.out.println("We don't sell " + item);
             return 0;
         }
         if(stockList.sellStock(item, quantity) != 0){

@@ -34,6 +34,7 @@ public class StockList {
 
         if((inStock != null) && (inStock.quantityInStock() >= quantity) && (quantity >0)){
             inStock.adjustStock(-quantity);
+
             return quantity;
         }
         return 0;

@@ -1,6 +1,7 @@
 package com.example.sortedCollections;
 
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -18,13 +19,28 @@ public class Basket {
         if((item != null) && (quantity > 0)){
             int inBasket = list.getOrDefault(item, 0);
             list.put(item, inBasket + quantity);
+            item.setReserved(quantity);
         }
+
         return 0;
     }
 
     public Map<StockItem, Integer> Items(){
         return Collections.unmodifiableMap(list);
     }
+
+    public int removeItem(StockItem item, int quantity) {
+        if((item != null) && (quantity > 0)){
+
+            //int inBasket = this.list.getOrDefault(item, 0);
+            this.list.remove(item, quantity);
+            item.setReserved(-quantity);
+        }
+
+        return 0;
+
+    }
+
 
     @Override
     public String toString(){
