@@ -47,8 +47,8 @@ public class Basket {
         String s = "\nShopping basket " + name + " contains " + list.size() + ((list.size() == 1) ? " item" : " items") + "\n";
         double totalCost = 0.0;
         for(Map.Entry<StockItem, Integer> item: list.entrySet()){
-            s = s + item.getKey() + ". " + item.getValue() + " purchased\n";
-            totalCost += item.getKey().getPrice() * item.getValue();
+            s = s + item.getKey() + ". " + " reserved: " + item.getKey().getReserved() + "\n";
+            totalCost += item.getKey().getPrice() * item.getKey().getReserved();
         }
         return s + "Total cost " + totalCost;
     }

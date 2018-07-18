@@ -47,11 +47,23 @@ public class ChallengeMain {
 
 
         Basket myBasket = new Basket("AJ");
+
         addItemToBasket(myBasket,"car",1);
-        System.out.println(myBasket);
+        addItemToBasket(myBasket,"vase",20);
+        removeItemFromBasket(myBasket,"car",1);
+        removeItemFromBasket(myBasket,"vase",2);
         checkOut(myBasket,stockList);
-        System.out.println(myBasket);
+        addItemToBasket(myBasket,"car",1);
+        checkOut(myBasket,stockList);
+        System.out.println(myBasket.Items());
         System.out.println(stockList);
+
+        //checkOut(myBasket,stockList);
+
+
+
+
+
 
 
 
@@ -79,10 +91,9 @@ public class ChallengeMain {
             System.out.println("We do not have " + item);
             return 0;
         }
-        if(stockItem.quantityInStock() > quantity){
+        if((stockItem.quantityInStock() >= quantity) && (stockItem.quantityInStock() > stockItem.getReserved())){
             System.out.println(item + " added to basket");
             basket.addToBasket(stockItem,quantity);
-            stockItem.setReserved(quantity);
             return quantity;
         }
 
@@ -102,10 +113,9 @@ public class ChallengeMain {
                System.out.println(item + " is not in your basket.");
                return 0;
            }
-           if(quantity <= stockItem.getReserved()){
+           if(quantity <= stockItem.getReserved() && (stockItem.getReserved() > 0) && (stockItem.getName() == item)){
                System.out.println(stockItem);
                basket.removeItem(stockItem,quantity);
-               stockItem.setReserved(stockItem.getReserved() - quantity);
                System.out.println(item + " removed from basket");
                return quantity;
            }
@@ -118,14 +128,12 @@ public class ChallengeMain {
     public static int checkOut(Basket basket,StockList stockList){
         Map<StockItem, Integer> tempMap = new TreeMap<>(basket.Items());
         for(Map.Entry<StockItem, Integer> o: tempMap.entrySet()){
-            stockList.sellStock(o.getKey().getName(),o.getValue());
-            removeItemFromBasket(basket,o.getKey().getName(),o.getValue());
-            System.out.println(o.getValue() + " " + o.getKey().getName() + " sold");
+            System.out.println(o.getKey().getReserved() + " " + o.getKey().getName() + " sold");
+            stockList.sellStock(o.getKey().getName(),o.getKey().getReserved());
+            removeItemFromBasket(basket,o.getKey().getName(),o.getKey().getReserved());
 
-
-            return 0;
         }
-        System.out.println("well that didn't work");
+
         return 0;
 
     }
